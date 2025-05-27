@@ -21,4 +21,15 @@ st.metric("평균 월금액", f"₩{avg_monthly:,.0f}")
 
 # 보험 연령 분포
 st.subheader("2️⃣ 보험 연령 분포")
-age
+age_counts = df['보험연령'].value_counts()
+st.bar_chart(age_counts)
+
+# 기종별 계약 수
+st.subheader("3️⃣ 기종별 계약 현황")
+model_counts = df['기종'].value_counts()
+st.bar_chart(model_counts)
+
+# 지사별 월금액 합계
+st.subheader("4️⃣ 지사별 실적")
+branch_stats = df.groupby('지사명')['월금액'].sum().sort_values(ascending=False)
+st.dataframe(branch_stats)
